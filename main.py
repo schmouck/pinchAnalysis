@@ -42,7 +42,23 @@ def main():
     cold_bp = list(sorted(cold_bp))
 
     # Corresponding heat capacity list
+    hot_hc = [0]*len(hot_bp)
+    cold_hc = [0]*len(cold_bp)
 
+    for curr in hot_curr:
+        print('This is curr')
+        print(curr)
+        # Finding temperature interval
+        temp_int = abs(curr[2] - curr[3])
+        # Finding start and stop index
+        start_index = hot_bp.index(min(curr[2:4]))
+        stop_index = hot_bp.index(max(curr[2:4]))
+        for i in range(start_index, stop_index+1):
+            hot_hc[i] += curr[4]/temp_int*(hot_bp[i]-hot_bp[start_index])
+        print(hot_hc)
+        for j in range(stop_index+1, len(hot_bp)):
+            hot_hc[j] += hot_hc[stop_index]
+        print(hot_hc)
 
 
 def read_file(fname):
